@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <Text>
-            {network?.name}
+            {network?.api}
         </Text>
     );
 };

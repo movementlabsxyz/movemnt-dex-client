@@ -1,0 +1,1 @@
+export const RPC_URL = 'https://submove.bbd.sh/v1/';
