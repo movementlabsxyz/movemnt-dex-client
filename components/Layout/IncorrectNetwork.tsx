@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Card, Text, VStack} from "@chakra-ui/react";
 
-import {RPC_URL} from "@/constants/rpcURL";
+import {RPC_URL} from "@/data/rpcURL";
 
 const IncorrectNetwork = () => {
     return (

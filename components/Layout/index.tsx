@@ -7,7 +7,7 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import Navbar from "@/components/Navbar";
 import IncorrectNetwork from "@/components/Layout/IncorrectNetwork";
 
-import { RPC_URL } from "@/constants/rpcURL";
+import { RPC_URL } from "@/data/rpcURL";
 
 
 interface Props {

@@ -1,17 +1,10 @@
 import React from 'react';
 
-import {useWallet} from "@manahippo/aptos-wallet-adapter";
-
-import {Text} from "@chakra-ui/react";
+import DemoTransfer from "@/components/Home/DemoTransfer";
 
 const Home = () => {
-
-    const { network } = useWallet();
-
     return (
-        <Text>
-            {network?.api}
-        </Text>
+        <DemoTransfer />
     );
 };
 
