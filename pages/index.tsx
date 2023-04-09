@@ -1,10 +1,9 @@
 import Head from 'next/head'
 
-import {Text} from "@chakra-ui/react";
-
 import Layout from "@/components/Layout";
+import Home from "@/components/Home";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Head>
@@ -14,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Text>Movement DEX</Text>
+        <Home />
       </Layout>
     </>
   )
