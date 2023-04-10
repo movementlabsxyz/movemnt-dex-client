@@ -1,6 +1,7 @@
 import React from 'react';
-import {Flex, Text} from "@chakra-ui/react";
+import {Flex, HStack, Text} from "@chakra-ui/react";
 import ConnectWallet from "@/components/Navbar/ConnectWallet";
+import NavLinks from "@/components/Navbar/NavLinks";
 
 export const navbarHeight = 20;
 
@@ -12,12 +13,17 @@ const Navbar = () => {
             height={navbarHeight}
             px={8}
         >
-            <Text
-                fontSize='2xl'
-                fontWeight='bold'
+            <HStack
+                spacing={8}
             >
-                Movemnt DEX
-            </Text>
+                <Text
+                    fontSize='2xl'
+                    fontWeight='bold'
+                >
+                    Movemnt DEX
+                </Text>
+                <NavLinks />
+            </HStack>
             <ConnectWallet />
         </Flex>
     );

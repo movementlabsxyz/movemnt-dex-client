@@ -1,10 +1,10 @@
 import React from 'react';
 
-import DemoTransfer from "@/components/Home/DemoTransfer";
+import Swap from "@/components/Swap";
 
 const Home = () => {
     return (
-        <DemoTransfer />
+        <Swap />
     );
 };
 

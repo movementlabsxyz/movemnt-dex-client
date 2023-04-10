@@ -1,28 +1,27 @@
 import React, {useEffect, useState} from 'react';
 
-import {InputGroup, InputRightAddon, NumberInput, NumberInputField, VStack, Text} from "@chakra-ui/react";
+import {Flex, NumberInput, NumberInputField, VStack, Text} from "@chakra-ui/react";
 
 interface Props {
     decimals: number;
     max?: number;
     amount: number;
     setAmount: (amount: number) => void;
-    symbol?: string;
+    rightAddon?: React.ReactNode;
     label?: string;
 }
 
-const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, symbol, label }) => {
+const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, rightAddon, label }) => {
 
-    const zeroWithDecimals = `0.${'0'.repeat(decimals)}`;
-    const [amountAsString, setAmountAsString] = useState(zeroWithDecimals);
+    const [amountAsString, setAmountAsString] = useState<string>("");
 
     useEffect(() => {
         if(amount === 0) {
-            setAmountAsString(zeroWithDecimals);
+            setAmountAsString("");
         } else {
             setAmountAsString(amount.toString());
         }
-    }, [decimals, amount, zeroWithDecimals]);
+    }, [decimals, amount]);
 
     const handleTextChange = (value: string) => {
         setAmountAsString(value);
@@ -40,21 +39,30 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, sy
     }
 
     return (
-        <VStack
+        <Flex
             w='100%'
-            alignItems='flex-start'
+            alignItems='center'
+            justifyContent='space-between'
+            borderWidth={2}
+            borderRadius='md'
+            p={4}
+            gap={4}
         >
-            {
-                label && (
-                    <Text
-                        fontSize='xs'
-                        fontWeight='medium'
-                    >
-                        {label}
-                    </Text>
-                )
-            }
-            <InputGroup>
+            <VStack
+                alignItems='flex-start'
+                w='100%'
+                spacing={0}
+            >
+                {
+                    label && (
+                        <Text
+                            fontSize='xs'
+                            fontWeight='medium'
+                        >
+                            {label}
+                        </Text>
+                    )
+                }
                 <NumberInput
                     value={amountAsString}
                     onChange={handleTextChange}
@@ -64,14 +72,15 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, sy
                     defaultValue={0}
                     focusBorderColor='brand.500'
                     onFocus={onFocus}
+                    variant='flushed'
                 >
-                    <NumberInputField />
+                    <NumberInputField
+                        placeholder={decimals ? `0.${'0'.repeat(decimals)}` : "Select Coin"}
+                    />
                 </NumberInput>
-                {
-                    symbol && <InputRightAddon>{symbol}</InputRightAddon>
-                }
-            </InputGroup>
-        </VStack>
+            </VStack>
+            {rightAddon}
+        </Flex>
     );
 };
 

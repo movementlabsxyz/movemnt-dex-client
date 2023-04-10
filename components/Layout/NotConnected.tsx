@@ -3,10 +3,9 @@ import React from 'react';
 import {Text, VStack} from "@chakra-ui/react";
 
 import Card from "@/components/Utilities/Card";
+import ConnectWallet from "@/components/Navbar/ConnectWallet";
 
-import {RPC_URL} from "@/data/rpcURL";
-
-const IncorrectNetwork = () => {
+const NotConnected = () => {
     return (
         <Card>
             <VStack
@@ -16,17 +15,15 @@ const IncorrectNetwork = () => {
                     fontSize='2xl'
                     fontWeight='bold'
                 >
-                    Incorrect Network
+                    Welcome to Movemnt
                 </Text>
-                <Text
-                    textAlign='center'
-                >
-                    You must connect to the Movemnt Subnet with RPC URL {RPC_URL} to access this page.
+                <Text>
+                    Please connect your wallet to get started
                 </Text>
+                <ConnectWallet />
             </VStack>
         </Card>
-
     );
 };
 
-export default IncorrectNetwork;
+export default NotConnected;

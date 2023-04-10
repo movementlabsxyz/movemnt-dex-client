@@ -6,8 +6,9 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
 import Navbar from "@/components/Navbar";
 import IncorrectNetwork from "@/components/Layout/IncorrectNetwork";
+import NotConnected from "@/components/Layout/NotConnected";
 
-import { RPC_URL } from "@/data/rpcURL";
+import {getCorrectNetwork} from "@/services/network";
 
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
 
-    const { network } = useWallet();
+    const { account, network } = useWallet();
 
     return (
         <Box
@@ -27,10 +28,14 @@ const Layout: React.FC<Props> = ({ children }) => {
             <Navbar />
             <Container>
                 {
-                    network?.api === RPC_URL ? (
-                        children
+                    account === null ? (
+                        <NotConnected />
                     ) : (
-                        <IncorrectNetwork />
+                        getCorrectNetwork(network?.api) ? (
+                            children
+                        ) : (
+                            <IncorrectNetwork />
+                        )
                     )
                 }
             </Container>

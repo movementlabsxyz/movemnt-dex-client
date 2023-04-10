@@ -31,7 +31,7 @@ const DemoTransfer = () => {
                 decimals={8}
                 amount={transferAmount}
                 setAmount={setTransferAmount}
-                symbol='MVMT'
+                rightAddon='MVMT'
                 label='Transfer Amount'
             />
             <LabeledInput
