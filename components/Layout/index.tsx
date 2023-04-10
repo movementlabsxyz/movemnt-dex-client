@@ -26,7 +26,9 @@ const Layout: React.FC<Props> = ({ children }) => {
             minW='100vw'
         >
             <Navbar />
-            <Container>
+            <Container
+                py={8}
+            >
                 {
                     account === null ? (
                         <NotConnected />
