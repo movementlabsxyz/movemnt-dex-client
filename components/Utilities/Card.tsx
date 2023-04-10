@@ -11,6 +11,7 @@ const Card: React.FC<Props> = ({ children }) => {
         <ChakraCard
             bg='white'
             p={4}
+            shadow='xl'
         >
             {children}
         </ChakraCard>

@@ -72,6 +72,7 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
                     focusBorderColor='brand.500'
                     onFocus={onFocus}
                     variant='flushed'
+                    size='lg'
                 >
                     <NumberInputField
                         placeholder={decimals ? `0.${'0'.repeat(decimals)}` : "Select Coin"}

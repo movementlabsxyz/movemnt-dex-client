@@ -5,7 +5,7 @@ import {VStack, Text, IconButton, Button} from "@chakra-ui/react";
 import { MdOutlineSwapVert } from "react-icons/md";
 
 import Card from "@/components/Utilities/Card";
-import SwapInput from "@/components/Swap/SwapInput";
+import SwapInput from "@/components/Utilities/SwapInput";
 
 import useSwap from "@/hooks/useSwap";
 

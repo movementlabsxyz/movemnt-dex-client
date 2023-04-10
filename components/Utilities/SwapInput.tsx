@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CoinAmountInput from "@/components/Utilities/CoinAmountInput";
-import CoinSelect from "@/components/Swap/CoinSelect";
+import CoinSelect from "@/components/Utilities/CoinSelect";
 
 import {Coin} from "@/types/Coin";
 
