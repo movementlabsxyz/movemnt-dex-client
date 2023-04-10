@@ -20,7 +20,7 @@ const Navbar = () => {
                     fontSize='2xl'
                     fontWeight='bold'
                 >
-                    Movemnt DEX
+                    Movement DEX
                 </Text>
                 <NavLinks />
             </HStack>

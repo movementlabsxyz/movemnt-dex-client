@@ -15,7 +15,7 @@ const NotConnected = () => {
                     fontSize='2xl'
                     fontWeight='bold'
                 >
-                    Welcome to Movemnt
+                    Welcome to Movement
                 </Text>
                 <Text>
                     Please connect your wallet to get started
