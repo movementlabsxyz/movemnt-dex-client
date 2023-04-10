@@ -8,19 +8,23 @@ const wallets = [
     new PontemWalletAdapter(),
 ];
 
+import {AptosProvider} from "@/contexts/AptosContext";
+
 import theme from "@/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-      <WalletProvider 
-          wallets={wallets}
-          autoConnect
-      >
-          <ChakraProvider
-            theme={theme}
+      <AptosProvider>
+          <WalletProvider
+              wallets={wallets}
+              autoConnect
           >
-            <Component {...pageProps} />
-          </ChakraProvider>
-      </WalletProvider>
+              <ChakraProvider
+                theme={theme}
+              >
+                <Component {...pageProps} />
+              </ChakraProvider>
+          </WalletProvider>
+      </AptosProvider>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {VStack, Text, IconButton, Button} from "@chakra-ui/react";
+import {VStack, Text, IconButton, Button, Box} from "@chakra-ui/react";
 
 import { MdOutlineSwapVert } from "react-icons/md";
 
@@ -8,6 +8,7 @@ import Card from "@/components/Utilities/Card";
 import SwapInput from "@/components/Utilities/SwapInput";
 
 import useSwap from "@/hooks/useSwap";
+import SlippageToleranceModal from "@/components/Swap/SlippageToleranceModal";
 
 const Swap = () => {
 
@@ -20,6 +21,8 @@ const Swap = () => {
         updateOutputCoin,
         outputAmount,
         updateOutputAmount,
+        slippageTolerance,
+        updateSlippageTolerance,
         swapCoins,
         onSwap,
         disabled
@@ -30,12 +33,30 @@ const Swap = () => {
             <VStack
                 spacing={4}
             >
-                <Text
-                    fontSize='2xl'
-                    fontWeight='bold'
+                <Box
+                    w='100%'
+                    position='relative'
                 >
-                    Swap
-                </Text>
+                    <Text
+                        fontSize='2xl'
+                        fontWeight='bold'
+                        w='100%'
+                        textAlign={'center'}
+                    >
+                        Swap
+                    </Text>
+                    <Box
+                        position='absolute'
+                        right={0}
+                        top={0}
+                    >
+                        <SlippageToleranceModal
+                            slippageTolerance={slippageTolerance}
+                            setSlippageTolerance={updateSlippageTolerance}
+                        />
+                    </Box>
+                </Box>
+
                 <SwapInput
                     label="From"
                     amount={inputAmount}
