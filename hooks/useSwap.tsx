@@ -14,13 +14,13 @@ const useSwap = () => {
         !inputCoin || !outputCoin || inputAmount <= 0
     ), [inputAmount, inputCoin, outputCoin]);
 
-    const fetchOutputAmount = async (inputAmount: number) => {
+    const fetchOutputAmount = async (inputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
         if(!inputCoin || !outputCoin || inputAmount <= 0) return;
         const outputAmount = await getOutputAmount(inputAmount, inputCoin, outputCoin);
         setOutputAmount(outputAmount);
     }
 
-    const fetchInputAmount = async (outputAmount: number) => {
+    const fetchInputAmount = async (outputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
         if(!inputCoin || !outputCoin || outputAmount <= 0) return;
         const inputAmount = await getInputAmount(outputAmount, inputCoin, outputCoin);
         setInputAmount(inputAmount);
@@ -28,22 +28,22 @@ const useSwap = () => {
 
     const updateInputCoin = async (coin: Coin) => {
         setInputCoin(coin);
-        await fetchInputAmount(outputAmount);
+        await fetchInputAmount(outputAmount, coin, outputCoin);
     }
 
     const updateInputAmount = async (amount: number) => {
         setInputAmount(amount);
-        await fetchOutputAmount(amount);
+        await fetchOutputAmount(amount, inputCoin, outputCoin);
     }
 
     const updateOutputCoin = async (coin: Coin) => {
         setOutputCoin(coin);
-        await fetchOutputAmount(inputAmount);
+        await fetchOutputAmount(inputAmount, inputCoin, coin);
     }
 
     const updateOutputAmount = async (amount: number) => {
         setOutputAmount(amount);
-        await fetchInputAmount(amount);
+        await fetchInputAmount(amount, inputCoin, outputCoin);
     }
 
     const swapCoins = async () => {
