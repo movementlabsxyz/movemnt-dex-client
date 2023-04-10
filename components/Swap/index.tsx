@@ -21,7 +21,8 @@ const Swap = () => {
         outputAmount,
         updateOutputAmount,
         swapCoins,
-        onSwap
+        onSwap,
+        disabled
     } = useSwap();
 
     return (
@@ -59,6 +60,7 @@ const Swap = () => {
                 <Button
                     onClick={onSwap}
                     w='100%'
+                    isDisabled={disabled}
                 >
                     Swap
                 </Button>

@@ -68,7 +68,6 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
                     onChange={handleTextChange}
                     w='100%'
                     max={max}
-                    precision={decimals}
                     defaultValue={0}
                     focusBorderColor='brand.500'
                     onFocus={onFocus}

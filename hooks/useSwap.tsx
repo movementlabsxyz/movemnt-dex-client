@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import {Coin} from "@/types/Coin";
+import {getInputAmount, getOutputAmount} from "@/services/dexUtils";
 
 const useSwap = () => {
 
@@ -9,20 +10,40 @@ const useSwap = () => {
     const [inputAmount, setInputAmount] = useState<number>(0);
     const [outputAmount, setOutputAmount] = useState<number>(0);
 
+    const disabled = useMemo(() => (
+        !inputCoin || !outputCoin || inputAmount <= 0
+    ), [inputAmount, inputCoin, outputCoin]);
+
+    const fetchOutputAmount = async (inputAmount: number) => {
+        if(!inputCoin || !outputCoin || inputAmount <= 0) return;
+        const outputAmount = await getOutputAmount(inputAmount, inputCoin, outputCoin);
+        setOutputAmount(outputAmount);
+    }
+
+    const fetchInputAmount = async (outputAmount: number) => {
+        if(!inputCoin || !outputCoin || outputAmount <= 0) return;
+        const inputAmount = await getInputAmount(outputAmount, inputCoin, outputCoin);
+        setInputAmount(inputAmount);
+    }
+
     const updateInputCoin = async (coin: Coin) => {
         setInputCoin(coin);
+        await fetchOutputAmount(inputAmount);
     }
 
     const updateInputAmount = async (amount: number) => {
         setInputAmount(amount);
+        await fetchOutputAmount(amount);
     }
 
     const updateOutputCoin = async (coin: Coin) => {
         setOutputCoin(coin);
+        await fetchInputAmount(outputAmount);
     }
 
     const updateOutputAmount = async (amount: number) => {
         setOutputAmount(amount);
+        await fetchInputAmount(amount);
     }
 
     const swapCoins = async () => {
@@ -48,7 +69,8 @@ const useSwap = () => {
         updateOutputCoin,
         updateOutputAmount,
         swapCoins,
-        onSwap
+        onSwap,
+        disabled
     }
 }
 
