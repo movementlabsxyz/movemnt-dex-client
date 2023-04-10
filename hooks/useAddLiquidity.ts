@@ -29,7 +29,7 @@ const useAddLiquidity = () => {
 
     const updateCoin1 = async (coin: Coin) => {
         setCoin1(coin);
-        await fetchCoin2Amount(coin1Amount);
+        await fetchCoin1Amount(coin2Amount);
     }
 
     const updateCoin1Amount = async (amount: number) => {
@@ -39,7 +39,7 @@ const useAddLiquidity = () => {
 
     const updateCoin2 = async (coin: Coin) => {
         setCoin2(coin);
-        await fetchCoin1Amount(coin2Amount);
+        await fetchCoin2Amount(coin1Amount);
     }
 
     const updateCoin2Amount = async (amount: number) => {

@@ -28,7 +28,7 @@ const useSwap = () => {
 
     const updateInputCoin = async (coin: Coin) => {
         setInputCoin(coin);
-        await fetchOutputAmount(inputAmount);
+        await fetchInputAmount(outputAmount);
     }
 
     const updateInputAmount = async (amount: number) => {
@@ -38,7 +38,7 @@ const useSwap = () => {
 
     const updateOutputCoin = async (coin: Coin) => {
         setOutputCoin(coin);
-        await fetchInputAmount(outputAmount);
+        await fetchOutputAmount(inputAmount);
     }
 
     const updateOutputAmount = async (amount: number) => {
