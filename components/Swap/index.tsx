@@ -10,6 +10,7 @@ import CoinInput from "@/components/Utilities/CoinInput";
 import useSwap from "@/hooks/useSwap";
 import SlippageToleranceModal from "@/components/Swap/SlippageToleranceModal";
 import coins from "@/data/coins";
+import PoolReserves from "@/components/PoolReserves";
 
 const Swap = () => {
 
@@ -80,6 +81,10 @@ const Swap = () => {
                     coin={outputCoin}
                     setCoin={updateOutputCoin}
                     coins={coins.filter(coin => coin.symbol !== inputCoin?.symbol)}
+                />
+                <PoolReserves
+                    coinX={inputCoin}
+                    coinY={outputCoin}
                 />
                 <Button
                     onClick={onSwap}

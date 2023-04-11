@@ -7,6 +7,7 @@ import CoinInput from "@/components/Utilities/CoinInput";
 import useAddLiquidity from "@/hooks/useAddLiquidity";
 
 import coins from "@/data/coins";
+import PoolReserves from "@/components/PoolReserves";
 
 const AddLiquidity = () => {
 
@@ -44,6 +45,10 @@ const AddLiquidity = () => {
                 setCoin={updateCoinY}
                 coins={coins.filter(coin => coin.symbol !== coinX?.symbol)}
                 isBalanceMax
+            />
+            <PoolReserves
+                coinX={coinX}
+                coinY={coinY}
             />
             <Button
                 onClick={onAddLiquidity}

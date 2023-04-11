@@ -1,4 +1,4 @@
-import { dexModuleAddress, lpModuleAddress } from "@/data/moduleAddresses";
+import {coinsModuleAddress, dexModuleAddress, lpModuleAddress} from "@/data/moduleAddresses";
 
 import { Module } from "@/types/Module";
 
@@ -20,4 +20,9 @@ export const curvesModule: Module = {
 export const lpModule: Module = {
     account_address: lpModuleAddress,
     module_name: "lp_coin"
+}
+
+export const coinsModule: Module = {
+    account_address: coinsModuleAddress,
+    module_name: "coins"
 }

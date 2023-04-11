@@ -94,10 +94,14 @@ const useAddLiquidity = () => {
                 coinXAmount * 10 ** coinX.decimals,
                 0
             )
-        await submitTransaction(payload, {
+        const success = await submitTransaction(payload, {
             title: "Add Liquidity Succeeded",
             description: `You have successfully added ${coinXAmount} ${coinX.symbol} and ${coinYAmount} ${coinY.symbol} to the liquidity pool.`
         });
+        if(success) {
+            setCoinXAmount(0);
+            setCoinYAmount(0);
+        }
     }
 
     return {

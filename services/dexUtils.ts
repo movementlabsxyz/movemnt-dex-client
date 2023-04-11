@@ -36,3 +36,4 @@ export const isSwapExists = async (client: AptosClient, coinX: Coin, coinY: Coin
         .then((res) => res[0] as boolean)
         .catch((_) => false);
 }
+

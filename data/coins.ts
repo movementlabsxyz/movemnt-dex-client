@@ -1,11 +1,6 @@
-import {Coin} from "@/types/Coin";
-import {Module} from "@/types/Module";
-import {coinsModuleAddress} from "@/data/moduleAddresses";
+import {coinsModule} from "@/data/modules";
 
-const testCoinModule: Module = {
-    account_address: coinsModuleAddress,
-    module_name: "coins",
-}
+import {Coin} from "@/types/Coin";
 
 export const MVMT: Coin = {
     name: "Movement",
@@ -23,7 +18,7 @@ export const AVAX: Coin = {
     name: "Avalanche",
     symbol: "AVAX",
     struct: {
-        ...testCoinModule,
+        ...coinsModule,
         struct_name: "AVAX",
     },
     imageURL: "/coinIcons/avax.png",
@@ -34,7 +29,7 @@ export const USDC: Coin = {
     name: "USD Coin",
     symbol: "USDC",
     struct: {
-        ...testCoinModule,
+        ...coinsModule,
         struct_name: "USDC",
     },
     imageURL: "/coinIcons/usdc.png",
@@ -45,7 +40,7 @@ export const ETH: Coin = {
     name: "Ethereum",
     symbol: "ETH",
     struct: {
-        ...testCoinModule,
+        ...coinsModule,
         struct_name: "ETH",
     },
     imageURL: "/coinIcons/eth.png",
@@ -56,7 +51,7 @@ export const BTC: Coin = {
     name: "Bitcoin",
     symbol: "BTC",
     struct: {
-        ...testCoinModule,
+        ...coinsModule,
         struct_name: "BTC",
     },
     imageURL: "/coinIcons/btc.png",

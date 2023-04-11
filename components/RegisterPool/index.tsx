@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {VStack, Button} from "@chakra-ui/react";
+import {VStack, Button, Text} from "@chakra-ui/react";
 
 import CoinSelect from "@/components/Utilities/CoinSelect";
 import useRegisterPool from "@/hooks/useRegisterPool";
@@ -12,6 +12,8 @@ const RegisterPool = () => {
     const {
         coinX,
         coinY,
+        poolExists,
+        disabled,
         updateCoinX,
         updateCoinY,
         onRegister,
@@ -33,9 +35,19 @@ const RegisterPool = () => {
             />
             <Button
                 onClick={onRegister}
+                isDisabled={disabled}
             >
                 Register Pool
             </Button>
+            {
+                poolExists && (
+                    <Text
+                        color='red.500'
+                    >
+                        Pool already exists
+                    </Text>
+                )
+            }
         </VStack>
     );
 };

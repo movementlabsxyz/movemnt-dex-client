@@ -107,10 +107,14 @@ const useSwap = () => {
             inputAmount * 10 ** inputCoin.decimals,
             (outputAmount * 10 ** outputCoin.decimals) * (1 - slippageTolerance),
         );
-        await submitTransaction(swapPayload, {
+        const success = await submitTransaction(swapPayload, {
             title: "Swap Succeeded",
             description: `Swapped ${inputAmount} ${inputCoin?.symbol} for ${outputAmount} ${outputCoin?.symbol}`
         })
+        if(success) {
+            setInputAmount(0);
+            setOutputAmount(0);
+        }
     }
 
     return {

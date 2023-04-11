@@ -5,6 +5,8 @@ import {Button, VStack} from "@chakra-ui/react";
 import LPCoinInput from "@/components/Utilities/LPCoinInput";
 
 import useRemoveLiquidity from "@/hooks/useRemoveLiquidity";
+import PoolReserves from "@/components/PoolReserves";
+import OutputAmounts from "@/components/RemoveLiquidity/OutputAmounts";
 
 const RemoveLiquidity = () => {
 
@@ -13,6 +15,9 @@ const RemoveLiquidity = () => {
         lpCoinAmount,
         updateLpCoin,
         updateLpCoinAmount,
+        loading,
+        coinXAmount,
+        coinYAmount,
         disabled,
         onRemoveLiquidity
     } = useRemoveLiquidity();
@@ -28,6 +33,17 @@ const RemoveLiquidity = () => {
                 lpCoin={lpCoin}
                 setLpCoin={updateLpCoin}
                 isBalanceMax
+            />
+            <OutputAmounts
+                coinX={lpCoin?.coinX || null}
+                coinY={lpCoin?.coinY || null}
+                amountX={coinXAmount}
+                amountY={coinYAmount}
+                loading={loading}
+            />
+            <PoolReserves 
+                coinX={lpCoin?.coinX || null}
+                coinY={lpCoin?.coinY || null}
             />
             <Button
                 onClick={onRemoveLiquidity}

@@ -22,6 +22,8 @@ const useRemoveLiquidity = () => {
     const [coinXAmount, setCoinXAmount] = useState<number>(0);
     const [coinYAmount, setCoinYAmount] = useState<number>(0);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const disabled = useMemo(() => (
         !lpCoin || lpCoinAmount === 0
     ), [lpCoin, lpCoinAmount]);
@@ -30,15 +32,16 @@ const useRemoveLiquidity = () => {
 
     const fetchOutputAmounts = async (lpCoinAmount: number, lpCoin: LPCoin | null) => {
         if(!lpCoinAmount || !lpCoin) return;
+        setLoading(true);
         const [coinXAmount, coinYAmount] = await getOutputAmountsForLpAmount(
             client,
-            lpCoin.coinX,
-            lpCoin.coinY,
+            lpCoin,
             curveType,
             lpCoinAmount
         );
         setCoinXAmount(coinXAmount);
         setCoinYAmount(coinYAmount);
+        setLoading(false);
     }
 
     const updateLpCoin = async (lpCoin: LPCoin) => {
@@ -61,10 +64,15 @@ const useRemoveLiquidity = () => {
             0,
             0
         );
-        await submitTransaction(payload, {
+        const success = await submitTransaction(payload, {
             title: "Remove Liquidity Succeeded",
             description: `You have successfully redeemed ${lpCoinAmount} ${lpCoin.symbol}.`
         });
+        if(success) {
+            setLpCoinAmount(0);
+            setCoinXAmount(0);
+            setCoinYAmount(0);
+        }
     }
 
     return {
@@ -72,6 +80,7 @@ const useRemoveLiquidity = () => {
         lpCoinAmount,
         coinXAmount,
         coinYAmount,
+        loading,
         updateLpCoin,
         updateLpCoinAmount,
         onRemoveLiquidity,
