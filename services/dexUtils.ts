@@ -1,17 +1,38 @@
 import {Coin} from "@/types/Coin";
+import {AptosClient} from "aptos";
+import {dexModuleAddress} from "@/data/moduleAddresses";
+import {structToString} from "@/services/moveUtils";
+import {CurveType} from "@/types/CurveType";
+import {curve} from "@/data/curves";
 
-export const getOutputAmount = async (inputAmount: number, _inputCoin: Coin, _outputCoin: Coin) => {
-    return inputAmount * 2;
+export const isSorted = async (client: AptosClient, coinX: Coin, coinY: Coin): Promise<boolean> => {
+    return client.view({
+        function: `${dexModuleAddress}::coin_helper::is_sorted`,
+        arguments: [],
+        type_arguments: [
+            structToString(coinX.struct),
+            structToString(coinY.struct)
+        ]
+    })
+        .then((res) => res[0] as boolean)
+        .catch((_) => false);
 }
 
-export const getInputAmount = async (outputAmount: number, _inputCoin: Coin, _outputCoin: Coin) => {
-    return outputAmount / 2;
+export const sortCoins = async (client: AptosClient, coinX: Coin, coinY: Coin): Promise<Coin[]> => {
+    const isCoinsSorted = await isSorted(client, coinX, coinY);
+    return isCoinsSorted ? [coinX, coinY] : [coinY, coinX];
 }
 
-export const getCoin2Amount = async (coin1Amount: number, _coin1: Coin, _coin2: Coin) => {
-    return coin1Amount * 2;
-}
-
-export const getCoin1Amount = async (coin2Amount: number, _coin1: Coin, _coin2: Coin) => {
-    return coin2Amount / 2;
+export const isSwapExists = async (client: AptosClient, coinX: Coin, coinY: Coin, curveType: CurveType): Promise<boolean> => {
+    return client.view({
+        function: `${dexModuleAddress}::router_v2::is_swap_exists`,
+        arguments: [],
+        type_arguments: [
+            structToString(coinX.struct),
+            structToString(coinY.struct),
+            structToString(curve(curveType))
+        ]
+    })
+        .then((res) => res[0] as boolean)
+        .catch((_) => false);
 }

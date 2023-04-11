@@ -1,63 +1,58 @@
 import React from 'react';
 
-import {Button, Text, VStack} from "@chakra-ui/react";
+import {Button, VStack} from "@chakra-ui/react";
 
-import Card from "@/components/Utilities/Card";
-import SwapInput from "@/components/Utilities/SwapInput";
+import CoinInput from "@/components/Utilities/CoinInput";
 
 import useAddLiquidity from "@/hooks/useAddLiquidity";
+
+import coins from "@/data/coins";
 
 const AddLiquidity = () => {
 
     const {
-        coin1,
-        coin2,
-        coin1Amount,
-        coin2Amount,
-        updateCoin1,
-        updateCoin2,
-        updateCoin1Amount,
-        updateCoin2Amount,
+        coinX,
+        coinY,
+        coinXAmount,
+        coinYAmount,
+        updateCoinX,
+        updateCoinY,
+        updateCoinXAmount,
+        updateCoinYAmount,
         onAddLiquidity,
         disabled
     } = useAddLiquidity()
 
     return (
-        <Card>
-            <VStack
-                spacing={4}
+        <VStack
+            spacing={4}
+        >
+            <CoinInput
+                label="Coin 1"
+                amount={coinXAmount}
+                setAmount={updateCoinXAmount}
+                coin={coinX}
+                setCoin={updateCoinX}
+                coins={coins.filter(coin => coin.symbol !== coinY?.symbol)}
+                isBalanceMax
+            />
+            <CoinInput
+                label="Coin 2"
+                amount={coinYAmount}
+                setAmount={updateCoinYAmount}
+                coin={coinY}
+                setCoin={updateCoinY}
+                coins={coins.filter(coin => coin.symbol !== coinX?.symbol)}
+                isBalanceMax
+            />
+            <Button
+                onClick={onAddLiquidity}
+                w='100%'
+                isDisabled={disabled}
             >
-                <Text
-                    fontSize='2xl'
-                    fontWeight='bold'
-                >
-                    Add Liquidity
-                </Text>
-                <SwapInput
-                    label="Coin 1"
-                    amount={coin1Amount}
-                    setAmount={updateCoin1Amount}
-                    coin={coin1}
-                    setCoin={updateCoin1}
-                    excludeSymbols={coin2 ? [coin2.symbol] : []}
-                />
-                <SwapInput
-                    label="Coin 2"
-                    amount={coin2Amount}
-                    setAmount={updateCoin2Amount}
-                    coin={coin2}
-                    setCoin={updateCoin2}
-                    excludeSymbols={coin1 ? [coin1.symbol] : []}
-                />
-                <Button
-                    onClick={onAddLiquidity}
-                    w='100%'
-                    isDisabled={disabled}
-                >
-                    Add Liquidity
-                </Button>
-            </VStack>
-        </Card>
+                Add Liquidity
+            </Button>
+        </VStack>
     );
 };
 

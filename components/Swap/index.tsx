@@ -5,10 +5,11 @@ import {VStack, Text, IconButton, Button, Box} from "@chakra-ui/react";
 import { MdOutlineSwapVert } from "react-icons/md";
 
 import Card from "@/components/Utilities/Card";
-import SwapInput from "@/components/Utilities/SwapInput";
+import CoinInput from "@/components/Utilities/CoinInput";
 
 import useSwap from "@/hooks/useSwap";
 import SlippageToleranceModal from "@/components/Swap/SlippageToleranceModal";
+import coins from "@/data/coins";
 
 const Swap = () => {
 
@@ -25,7 +26,8 @@ const Swap = () => {
         updateSlippageTolerance,
         swapCoins,
         onSwap,
-        disabled
+        disabled,
+        swapExists
     } = useSwap();
 
     return (
@@ -57,26 +59,27 @@ const Swap = () => {
                     </Box>
                 </Box>
 
-                <SwapInput
+                <CoinInput
                     label="From"
                     amount={inputAmount}
                     setAmount={updateInputAmount}
                     coin={inputCoin}
                     setCoin={updateInputCoin}
-                    excludeSymbols={outputCoin ? [outputCoin.symbol] : []}
+                    coins={coins.filter(coin => coin.symbol !== outputCoin?.symbol)}
+                    isBalanceMax
                 />
                 <IconButton
                     aria-label='SwapCoins'
                     icon={<MdOutlineSwapVert />}
                     onClick={swapCoins}
                 />
-                <SwapInput
+                <CoinInput
                     label="To"
                     amount={outputAmount}
                     setAmount={updateOutputAmount}
                     coin={outputCoin}
                     setCoin={updateOutputCoin}
-                    excludeSymbols={inputCoin ? [inputCoin.symbol] : []}
+                    coins={coins.filter(coin => coin.symbol !== inputCoin?.symbol)}
                 />
                 <Button
                     onClick={onSwap}
@@ -85,6 +88,16 @@ const Swap = () => {
                 >
                     Swap
                 </Button>
+                {
+                    (inputCoin && outputCoin && !swapExists) && (
+                        <Text
+                            color='red.500'
+                            fontSize='sm'
+                        >
+                            Pool does not exist
+                        </Text>
+                    )
+                }
             </VStack>
         </Card>
     );

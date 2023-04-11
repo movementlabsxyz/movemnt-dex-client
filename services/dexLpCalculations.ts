@@ -36,7 +36,7 @@ export const getCoin2Amount = async (
     curveType: CurveType,
     coin1Amount: number,
 ): Promise<number> => {
-    client.view({
+    return client.view({
         function: `${moduleToString(routerModule)}::get_reserves_size`,
         arguments: [],
         type_arguments: [
@@ -49,7 +49,6 @@ export const getCoin2Amount = async (
             coin1Amount / (res[0] as number / 10 ** coin1.decimals) * (res[1] as number / 10 ** coin2.decimals))
         )
         .catch((_) => 0)
-    return 0;
 }
 
 export const getCoin1Amount = async (
@@ -59,7 +58,7 @@ export const getCoin1Amount = async (
     curveType: CurveType,
     coin2Amount: number,
 ): Promise<number> => {
-    client.view({
+    return client.view({
         function: `${moduleToString(routerModule)}::get_reserves_size`,
         arguments: [],
         type_arguments: [
@@ -72,5 +71,4 @@ export const getCoin1Amount = async (
             coin2Amount / (res[0] as number / 10 ** coin2.decimals) * (res[1] as number / 10 ** coin1.decimals))
         )
         .catch((_) => 0)
-    return 0;
 }

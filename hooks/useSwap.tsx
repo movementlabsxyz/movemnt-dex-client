@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 
-import useSubmitTransaction from "@/hooks/useSubmitTransaction";
+import useSubmitTransaction from "@/hooks/utils/useSubmitTransaction";
 
 import {getInputAmount, getOutputAmount} from "@/services/dexSwapCalculations";
 
@@ -8,6 +8,7 @@ import {Coin} from "@/types/Coin";
 import {buildSwapPayload} from "@/services/dexPayloadBuilder";
 import {CurveType} from "@/types/CurveType";
 import {useAptos} from "@/contexts/AptosContext";
+import {isSwapExists} from "@/services/dexUtils";
 
 const useSwap = () => {
 
@@ -20,10 +21,11 @@ const useSwap = () => {
     const [inputAmount, setInputAmount] = useState<number>(0);
     const [outputAmount, setOutputAmount] = useState<number>(0);
     const [slippageTolerance, setSlippageTolerance] = useState<number>(0.01);
+    const [swapExists, setSwapExists] = useState<boolean>(false);
 
     const disabled = useMemo(() => (
-        !inputCoin || !outputCoin || inputAmount <= 0
-    ), [inputAmount, inputCoin, outputCoin]);
+        !inputCoin || !outputCoin || inputAmount <= 0 || outputAmount <= 0 || !swapExists
+    ), [inputAmount, inputCoin, outputAmount, outputCoin, swapExists]);
 
     const curveType = useMemo<CurveType>(() => "Uncorrelated", []);
 
@@ -36,7 +38,7 @@ const useSwap = () => {
             outputCoin,
             curveType
         );
-        setOutputAmount(outputAmount);
+        if(outputAmount > 0) setOutputAmount(outputAmount);
     }
 
     const fetchInputAmount = async (outputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
@@ -48,12 +50,21 @@ const useSwap = () => {
             outputCoin,
             curveType
         );
-        setInputAmount(inputAmount);
+        if(inputAmount > 0) setInputAmount(inputAmount);
+    }
+
+    const fetchSwapExists = async (inputCoin: Coin | null, outputCoin: Coin | null) => {
+        if(!inputCoin || !outputCoin) return;
+        const swapExists = await isSwapExists(client, inputCoin, outputCoin, "Uncorrelated");
+        setSwapExists(swapExists);
     }
 
     const updateInputCoin = async (coin: Coin) => {
         setInputCoin(coin);
-        await fetchInputAmount(outputAmount, coin, outputCoin);
+        await Promise.all([
+            fetchSwapExists(coin, outputCoin),
+            fetchOutputAmount(inputAmount, coin, outputCoin),
+        ])
     }
 
     const updateInputAmount = async (amount: number) => {
@@ -63,7 +74,10 @@ const useSwap = () => {
 
     const updateOutputCoin = async (coin: Coin) => {
         setOutputCoin(coin);
-        await fetchOutputAmount(inputAmount, inputCoin, coin);
+        await Promise.all([
+            fetchSwapExists(inputCoin, coin),
+            fetchInputAmount(outputAmount, inputCoin, coin),
+        ])
     }
 
     const updateOutputAmount = async (amount: number) => {
@@ -112,6 +126,7 @@ const useSwap = () => {
         updateSlippageTolerance,
         swapCoins,
         onSwap,
+        swapExists,
         disabled
     }
 }

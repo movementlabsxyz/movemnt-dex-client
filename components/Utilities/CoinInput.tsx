@@ -11,13 +11,14 @@ interface Props {
     coin: Coin | null;
     setCoin: (coin: Coin) => void;
     label: string;
-    excludeSymbols?: string[];
+    coins: Coin[];
+    isBalanceMax?: boolean;
 }
 
-const SwapInput: React.FC<Props> = ({ amount, setAmount, coin, setCoin, label, excludeSymbols }) => {
+const CoinInput: React.FC<Props> = ({ amount, setAmount, coin, setCoin, label, coins, isBalanceMax }) => {
     return (
         <CoinAmountInput
-            decimals={coin ? coin.decimals : 0}
+            coin={coin}
             amount={amount}
             setAmount={setAmount}
             label={label}
@@ -25,11 +26,12 @@ const SwapInput: React.FC<Props> = ({ amount, setAmount, coin, setCoin, label, e
                 <CoinSelect
                     coin={coin}
                     setCoin={setCoin}
-                    excludeSymbols={excludeSymbols}
+                    coins={coins}
                 />
             }
+            isBalanceMax={isBalanceMax}
         />
     );
 };
 
-export default SwapInput;
+export default CoinInput;

@@ -3,15 +3,15 @@ import React from 'react';
 import {Button, Menu, MenuButton, MenuItem, MenuList, Image} from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
 
-import {Coin} from "@/types/Coin";
+import {LPCoin} from "@/types/LPCoin";
 
 interface Props {
-    coin: Coin | null;
-    setCoin: (coin: Coin) => void;
-    coins: Coin[];
+    lpCoin: LPCoin | null;
+    setLpCoin: (coin: LPCoin) => void;
+    lpCoins: LPCoin[];
 }
 
-const CoinSelect: React.FC<Props> = ({ coin, setCoin, coins }) => {
+const LPCoinSelect: React.FC<Props> = ({ lpCoin, setLpCoin, lpCoins }) => {
 
     return (
         <Menu>
@@ -19,35 +19,35 @@ const CoinSelect: React.FC<Props> = ({ coin, setCoin, coins }) => {
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
                 leftIcon={
-                    coin ? (
+                    lpCoin ? (
                         <Image
                             boxSize={6}
-                            alt={coin.name}
-                            src={coin.imageURL}
+                            alt={lpCoin.name}
+                            src={lpCoin.imageURL}
                             rounded='full'
                         />
                     ) : undefined
                 }
                 w={80}
             >
-                {coin ? coin.symbol : 'Select Coin'}
+                {lpCoin ? lpCoin.symbol : 'Select Coin'}
             </MenuButton>
             <MenuList>
                 {
-                    coins.map(coin => (
+                    lpCoins.map(lpCoin => (
                         <MenuItem
-                            key={coin.name}
-                            onClick={() => setCoin(coin)}
+                            key={lpCoin.name}
+                            onClick={() => setLpCoin(lpCoin)}
                             icon={
                                 <Image
                                     boxSize={6}
-                                    alt={coin.name}
-                                    src={coin.imageURL}
+                                    alt={lpCoin.name}
+                                    src={lpCoin.imageURL}
                                     rounded='full'
                                 />
                             }
                         >
-                            {coin.symbol}
+                            {lpCoin.symbol}
                         </MenuItem>
                     ))
                 }
@@ -56,4 +56,4 @@ const CoinSelect: React.FC<Props> = ({ coin, setCoin, coins }) => {
     );
 };
 
-export default CoinSelect;
+export default LPCoinSelect;

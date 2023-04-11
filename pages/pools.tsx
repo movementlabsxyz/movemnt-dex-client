@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import Layout from "@/components/Layout";
-import AddLiquidity from "@/components/AddLiquidity";
+import Pools from "@/components/Pools";
 
 export default function HomePage() {
   return (
@@ -13,7 +13,7 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <AddLiquidity />
+        <Pools />
       </Layout>
     </>
   )

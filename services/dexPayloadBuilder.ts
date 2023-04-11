@@ -18,8 +18,8 @@ export const buildSwapPayload = (
     type: 'entry_function_payload',
     function: `${moduleToString(scriptsModule)}::swap`,
     arguments: [
-        swapAmount,
-        minAmountOut,
+        Math.round(swapAmount),
+        Math.round(minAmountOut),
     ],
     type_arguments: [
         structToString(coinX.struct),
@@ -72,4 +72,19 @@ export const buildRemoveLiquidityPayload = (
         structToString(coinY.struct),
         structToString(curve(curveType))
     ],
+})
+
+export const buildRegisterPoolPayload = (
+    coinX: Coin,
+    coinY: Coin,
+    curveType: CurveType,
+): TransactionPayload => ({
+    type: 'entry_function_payload',
+    function: `${moduleToString(scriptsModule)}::register_pool`,
+    arguments: [],
+    type_arguments: [
+        structToString(coinX.struct),
+        structToString(coinY.struct),
+        structToString(curve(curveType))
+    ]
 })

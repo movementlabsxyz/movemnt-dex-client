@@ -12,19 +12,18 @@ export const getOutputAmount = async (
     inputCoin: Coin,
     outputCoin: Coin,
     curveType: CurveType
-) => {
-    await client.view({
+): Promise<number> => {
+    return client.view({
         function: `${moduleToString(routerModule)}::get_amount_out`,
-        arguments: [inputAmount],
+        arguments: [(inputAmount * 10 ** inputCoin.decimals).toString()],
         type_arguments: [
             structToString(inputCoin.struct),
             structToString(outputCoin.struct),
             structToString(curve(curveType))
         ]
     })
-        .then((res) => res[0])
+        .then((res) => res[0] as number / 10 ** outputCoin.decimals)
         .catch((_) => 0)
-    return inputAmount * 2;
 }
 
 export const getInputAmount = async (
@@ -33,17 +32,16 @@ export const getInputAmount = async (
     inputCoin: Coin,
     outputCoin: Coin,
     curveType: CurveType
-) => {
-    await client.view({
-        function: `${moduleToString(routerModule)}::get_amount_out`,
-        arguments: [outputAmount],
+): Promise<number> => {
+    return client.view({
+        function: `${moduleToString(routerModule)}::get_amount_in`,
+        arguments: [(outputAmount * 10 ** outputCoin.decimals).toString()],
         type_arguments: [
             structToString(inputCoin.struct),
             structToString(outputCoin.struct),
             structToString(curve(curveType))
         ]
     })
-        .then((res) => res[0])
+        .then((res) => res[0] as number / 10 ** inputCoin.decimals)
         .catch((_) => 0)
-    return outputAmount / 2;
 }

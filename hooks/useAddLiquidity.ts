@@ -2,9 +2,10 @@ import { useState, useMemo } from "react";
 
 import {useAptos} from "@/contexts/AptosContext";
 
-import useSubmitTransaction from "@/hooks/useSubmitTransaction";
+import useSubmitTransaction from "@/hooks/utils/useSubmitTransaction";
 
 import {getCoin1Amount, getCoin2Amount} from "@/services/dexLpCalculations";
+import {isSorted} from "@/services/dexUtils";
 
 import {Coin} from "@/types/Coin";
 import {buildAddLiquidityPayload} from "@/services/dexPayloadBuilder";
@@ -16,14 +17,14 @@ const useAddLiquidity = () => {
 
     const { submitTransaction } = useSubmitTransaction();
 
-    const [coin1, setCoin1] = useState<Coin | null>(null);
-    const [coin2, setCoin2] = useState<Coin | null>(null);
-    const [coin1Amount, setCoin1Amount] = useState<number>(0);
-    const [coin2Amount, setCoin2Amount] = useState<number>(0);
+    const [coinX, setCoinX] = useState<Coin | null>(null);
+    const [coinY, setCoinY] = useState<Coin | null>(null);
+    const [coinXAmount, setCoinXAmount] = useState<number>(0);
+    const [coinYAmount, setCoinYAmount] = useState<number>(0);
 
     const disabled = useMemo(() => (
-        !coin1 || !coin2 || coin1Amount === 0 || coin2Amount === 0
-    ), [coin1, coin1Amount, coin2, coin2Amount]);
+        !coinX || !coinY || coinXAmount === 0 || coinYAmount === 0
+    ), [coinX, coinXAmount, coinY, coinYAmount]);
 
     const curveType = useMemo<CurveType>(() => "Uncorrelated", []);
 
@@ -36,7 +37,7 @@ const useAddLiquidity = () => {
             curveType,
             coin1Amount
         );
-        setCoin2Amount(coin2Amount);
+        if(coin2Amount > 0) setCoinYAmount(coin2Amount);
     }
 
     const fetchCoin1Amount = async (coin2Amount: number, coin1: Coin | null, coin2: Coin | null) => {
@@ -48,55 +49,66 @@ const useAddLiquidity = () => {
             curveType,
             coin2Amount
         );
-        setCoin1Amount(coin1Amount);
+        if(coin1Amount > 0) setCoinXAmount(coin1Amount);
     }
 
-    const updateCoin1 = async (coin: Coin) => {
-        setCoin1(coin);
-        await fetchCoin1Amount(coin2Amount, coin, coin2);
+    const updateCoinX = async (coin: Coin) => {
+        setCoinX(coin);
+        await fetchCoin1Amount(coinYAmount, coin, coinY);
     }
 
-    const updateCoin1Amount = async (amount: number) => {
-        setCoin1Amount(amount);
-        await fetchCoin2Amount(amount, coin1, coin2);
+    const updateCoinXAmount = async (amount: number) => {
+        setCoinXAmount(amount);
+        await fetchCoin2Amount(amount, coinX, coinY);
     }
 
-    const updateCoin2 = async (coin: Coin) => {
-        setCoin2(coin);
-        await fetchCoin2Amount(coin1Amount, coin1, coin);
+    const updateCoinY = async (coin: Coin) => {
+        setCoinY(coin);
+        await fetchCoin2Amount(coinXAmount, coinX, coin);
     }
 
-    const updateCoin2Amount = async (amount: number) => {
-        setCoin2Amount(amount);
-        await fetchCoin1Amount(amount, coin1, coin2);
+    const updateCoinYAmount = async (amount: number) => {
+        setCoinYAmount(amount);
+        await fetchCoin1Amount(amount, coinX, coinY);
     }
 
     const onAddLiquidity = async () => {
-        if(!coin1 || !coin2 || coin1Amount <= 0 || coin2Amount <= 0) return;
-        const payload = buildAddLiquidityPayload(
-            coin1,
-            coin2,
-            curveType,
-            coin1Amount * 10 ** coin1.decimals,
-            0,
-            coin2Amount * 10 ** coin2.decimals,
-            0
-        );
+        if(!coinX || !coinY || coinXAmount <= 0 || coinYAmount <= 0) return;
+        const isCoinsSorted = await isSorted(client, coinX, coinY);
+        const payload = isCoinsSorted
+            ? buildAddLiquidityPayload(
+                coinX,
+                coinY,
+                curveType,
+                coinXAmount * 10 ** coinX.decimals,
+                0,
+                coinYAmount * 10 ** coinY.decimals,
+                0
+            )
+            : buildAddLiquidityPayload(
+                coinY,
+                coinX,
+                curveType,
+                coinYAmount * 10 ** coinY.decimals,
+                0,
+                coinXAmount * 10 ** coinX.decimals,
+                0
+            )
         await submitTransaction(payload, {
             title: "Add Liquidity Succeeded",
-            description: `You have successfully added ${coin1Amount} ${coin1.symbol} and ${coin2Amount} ${coin2.symbol} to the liquidity pool.`
+            description: `You have successfully added ${coinXAmount} ${coinX.symbol} and ${coinYAmount} ${coinY.symbol} to the liquidity pool.`
         });
     }
 
     return {
-        coin1,
-        coin2,
-        coin1Amount,
-        coin2Amount,
-        updateCoin1,
-        updateCoin1Amount,
-        updateCoin2,
-        updateCoin2Amount,
+        coinX,
+        coinY,
+        coinXAmount,
+        coinYAmount,
+        updateCoinX,
+        updateCoinXAmount,
+        updateCoinY,
+        updateCoinYAmount,
         onAddLiquidity,
         disabled
     }

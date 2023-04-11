@@ -1,17 +1,24 @@
 import React, {useEffect, useState} from 'react';
 
 import {Flex, NumberInput, NumberInputField, VStack, Text} from "@chakra-ui/react";
+import {Coin} from "@/types/Coin";
+import useCoinBalance from "@/hooks/utils/useCoinBalance";
+import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
 interface Props {
-    decimals: number;
-    max?: number;
+    coin: Coin | null
     amount: number;
     setAmount: (amount: number) => void;
     rightAddon?: React.ReactNode;
     label?: string;
+    isBalanceMax?: boolean;
 }
 
-const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, rightAddon, label }) => {
+const CoinAmountInput: React.FC<Props> = ({ coin, amount, setAmount, rightAddon, label, isBalanceMax }) => {
+
+    const { account } = useWallet();
+
+    const balance = useCoinBalance(account?.address?.toString(), coin);
 
     const [amountAsString, setAmountAsString] = useState<string>("");
 
@@ -21,7 +28,7 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
         } else {
             setAmountAsString(amount.toString());
         }
-    }, [decimals, amount]);
+    }, [amount]);
 
     const handleTextChange = (value: string) => {
         setAmountAsString(value);
@@ -51,15 +58,25 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
             <VStack
                 alignItems='flex-start'
                 w='100%'
-                spacing={0}
+                spacing={1}
             >
                 {
                     label && (
                         <Text
-                            fontSize='xs'
                             fontWeight='medium'
                         >
                             {label}
+                        </Text>
+                    )
+                }
+                {
+                    coin && (
+                        <Text
+                            fontSize='xs'
+                            fontWeight='medium'
+                            color='blackAlpha.700'
+                        >
+                            Balance: {balance} {coin.symbol}
                         </Text>
                     )
                 }
@@ -67,7 +84,7 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
                     value={amountAsString}
                     onChange={handleTextChange}
                     w='100%'
-                    max={max}
+                    max={isBalanceMax ? balance : undefined}
                     defaultValue={0}
                     focusBorderColor='brand.500'
                     onFocus={onFocus}
@@ -75,7 +92,7 @@ const CoinAmountInput: React.FC<Props> = ({ decimals, max, amount, setAmount, ri
                     size='lg'
                 >
                     <NumberInputField
-                        placeholder={decimals ? `0.${'0'.repeat(decimals)}` : "Select Coin"}
+                        placeholder={coin ? `0.${'0'.repeat(coin.decimals)}` : "Select Coin"}
                     />
                 </NumberInput>
             </VStack>
