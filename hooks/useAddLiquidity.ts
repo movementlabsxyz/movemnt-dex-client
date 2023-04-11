@@ -11,6 +11,8 @@ import {Coin} from "@/types/Coin";
 import {buildAddLiquidityPayload} from "@/services/dexPayloadBuilder";
 import {CurveType} from "@/types/CurveType";
 
+const slippageTolerance = 0.01;
+
 const useAddLiquidity = () => {
 
     const { client } = useAptos();
@@ -80,19 +82,17 @@ const useAddLiquidity = () => {
                 coinX,
                 coinY,
                 curveType,
-                coinXAmount * 10 ** coinX.decimals,
-                0,
-                coinYAmount * 10 ** coinY.decimals,
-                0
+                coinXAmount,
+                coinYAmount,
+                slippageTolerance
             )
             : buildAddLiquidityPayload(
                 coinY,
                 coinX,
                 curveType,
-                coinYAmount * 10 ** coinY.decimals,
-                0,
-                coinXAmount * 10 ** coinX.decimals,
-                0
+                coinYAmount,
+                coinXAmount,
+                slippageTolerance
             )
         const success = await submitTransaction(payload, {
             title: "Add Liquidity Succeeded",

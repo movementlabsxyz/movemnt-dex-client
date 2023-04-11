@@ -33,17 +33,16 @@ export const buildAddLiquidityPayload = (
     coinY: Coin,
     curveType: CurveType,
     amountX: number,
-    minAmountX: number,
     amountY: number,
-    minAmountY: number,
+    slippageTolerance: number,
 ): TransactionPayload => ({
     type: 'entry_function_payload',
     function: `${moduleToString(scriptsModule)}::add_liquidity`,
     arguments: [
-        amountX,
-        minAmountX,
-        amountY,
-        minAmountY,
+        Math.round(amountX * 10 ** coinX.decimals),
+        Math.round(amountX * 10 ** coinY.decimals * (1 - slippageTolerance)),
+        Math.round(amountY * 10 ** coinY.decimals),
+        Math.round(amountY * 10 ** coinX.decimals * (1 - slippageTolerance)),
     ],
     type_arguments: [
         structToString(coinX.struct),
