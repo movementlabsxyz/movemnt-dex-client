@@ -20,11 +20,12 @@ const useSubmitTransaction = () => {
     const toast = useToast();
 
     const submitTransaction = async (transaction: TransactionPayload, toastMessage: ToastMessage): Promise<boolean> => (
-        signAndSubmitTransaction(transaction, {checkSuccess: true})
+        signAndSubmitTransaction(transaction, {checkSuccess: true, maxGasAmount: 1000000})
             .then(async ({hash}) => (
                 client.waitForTransactionWithResult(hash)
                     // @ts-ignore
                     .then(async (transaction: Transaction_UserTransaction) => {
+                        console.log(transaction);
                         if(transaction.success) {
                             await updateClient();
                             toast({
@@ -38,7 +39,7 @@ const useSubmitTransaction = () => {
                         } else {
                             toast({
                                 title: "Transaction failed",
-                                description: "Transaction failed",
+                                description: transaction.vm_status,
                                 status: "error",
                                 duration: 5000,
                                 isClosable: true,

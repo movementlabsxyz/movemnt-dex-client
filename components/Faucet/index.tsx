@@ -31,7 +31,7 @@ const Faucet = () => {
                     w='100%'
                     textAlign={'center'}
                 >
-                    Swap
+                    Faucet
                 </Text>
                 <CoinInput
                     label="Faucet Amount"

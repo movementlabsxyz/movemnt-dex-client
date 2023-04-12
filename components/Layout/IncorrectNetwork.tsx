@@ -21,7 +21,7 @@ const IncorrectNetwork = () => {
                 <Text
                     textAlign='center'
                 >
-                    You must connect to Aptos Testnet with RPC URL {RPC_URL} to access this page.
+                    You must connect to the Movement Subnet with RPC URL {RPC_URL} to access this page.
                 </Text>
             </VStack>
         </Card>

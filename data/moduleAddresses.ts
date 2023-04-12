@@ -1,5 +1,5 @@
-export const dexModuleAddress = "0xd0d068848da0d8b1eec5755c048142c8efecf8a2ac9e319d6f502358535f2590";
+export const dexModuleAddress = "0x5d74b9dfc5e930db7fd9530675e06a0bb52800cb5bf7c038a6f886aa3c00381d";
 
-export const lpModuleAddress = "0x74b1a2737e3163142e0f6cdf92c6d56b990c574dfa69ce443ced20a119602cca";
+export const lpModuleAddress = "0x5a33c876cbc9c16d0a8d030c21f279d8e34682cd8014200b7d93fedba0e7ffa3";
 
 export const coinsModuleAddress = "0xd0d068848da0d8b1eec5755c048142c8efecf8a2ac9e319d6f502358535f2590"

@@ -1,1 +1,1 @@
-export const RPC_URL = 'https://fullnode.testnet.aptoslabs.com/v1/';
+export const RPC_URL = 'https://submove-fuji.bbd.sh/v1';
