@@ -12,7 +12,7 @@ import {
     useToast,
     Image,
     Flex,
-    Text, HStack,
+    HStack,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
@@ -115,31 +115,11 @@ const ConnectWallet = () => {
                                         gap={4}
                                     >
                                         {wallet.adapter.name}
-                                        {
-                                            (wallet.adapter.name === 'Pontem' || wallet.adapter.name == 'Rise Wallet') && (
-                                                <Flex
-                                                    alignItems='center'
-                                                    bg='green.500'
-                                                    rounded='lg'
-                                                    p={1}
-
-                                                >
-                                                    <Text
-                                                        fontSize='xs'
-                                                        color='white'
-                                                        fontWeight='bold'
-                                                    >
-                                                        Popular
-                                                    </Text>
-                                                </Flex>
-                                            )
-                                        }
                                     </Flex>
                                 </MenuItem>
                             ))
                         )
                     }
-
                 </MenuList>
             </Menu>
         </HStack>
