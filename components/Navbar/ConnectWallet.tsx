@@ -12,7 +12,7 @@ import {
     useToast,
     Image,
     Flex,
-    Text,
+    Text, HStack,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
@@ -55,93 +55,94 @@ const ConnectWallet = () => {
     const mobileView = useBreakpointValue({ base: true, sm: false })
 
     return (
-        <Menu>
-            {
-                mobileView ? (
-                    <MenuButton
-                        py={2}
-                        transition="all 0.3s"
-                        _focus={{ boxShadow: 'none' }}
-                        as={IconButton}
-                        colorScheme={connected ? 'brand': 'gray'}
-                        variant={connected ? 'outline' : 'solid'}
-                        icon={mobileView ? <FaWallet /> : undefined}
-                    >
-                        {(connected ? ellipsize(account?.address?.toString()) : 'Connect Wallet')}
-                    </MenuButton>
-                ) : (
-                    <MenuButton
-                        py={2}
-                        transition="all 0.3s"
-                        _focus={{ boxShadow: 'none' }}
-                        as={Button}
-                        colorScheme={connected ? 'brand': 'gray'}
-                        variant={connected ? 'outline' : 'solid'}
-                        rightIcon={!mobileView ? <ChevronDownIcon /> : undefined}
-                        leftIcon={!mobileView ? <FaWallet /> : undefined}
-                    >
-                        {(connected ? ellipsize(account?.address?.toString()) : 'Connect Wallet')}
-                    </MenuButton>
-                )
-            }
-
-            <MenuList>
+        <HStack>
+            <Menu>
                 {
-                    connected ? (
-                        <>
-                            <MenuItem
-                                onClick={copy}
-                            >
-                                Copy Address
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => disconnect()}
-                            >
-                                Disconnect
-                            </MenuItem>
-                        </>
+                    mobileView ? (
+                        <MenuButton
+                            py={2}
+                            transition="all 0.3s"
+                            _focus={{ boxShadow: 'none' }}
+                            as={IconButton}
+                            colorScheme={connected ? 'brand': 'gray'}
+                            variant={connected ? 'outline' : 'solid'}
+                            icon={mobileView ? <FaWallet /> : undefined}
+                        >
+                            {(connected ? ellipsize(account?.address?.toString(), 8) : 'Connect Wallet')}
+                        </MenuButton>
                     ) : (
-                        wallets.map(wallet => (
-                            <MenuItem
-                                key={wallet.adapter.name}
-                                onClick={() => onConnect(wallet)}
-                                icon={<Image src={wallet.adapter.icon} boxSize={6} alt={wallet.adapter.name} />}
-                                fontWeight="medium"
-                                alignItems='center'
-                            >
-                                <Flex
-                                    justifyContent='space-between'
-                                    alignItems='center'
-                                    gap={4}
-                                >
-                                    {wallet.adapter.name}
-                                    {
-                                        (wallet.adapter.name === 'Pontem' || wallet.adapter.name == 'Rise Wallet') && (
-                                            <Flex
-                                                alignItems='center'
-                                                bg='green.500'
-                                                rounded='lg'
-                                                p={1}
-
-                                            >
-                                                <Text
-                                                    fontSize='xs'
-                                                    color='white'
-                                                    fontWeight='bold'
-                                                >
-                                                    Popular
-                                                </Text>
-                                            </Flex>
-                                        )
-                                    }
-                                </Flex>
-                            </MenuItem>
-                        ))
+                        <MenuButton
+                            py={2}
+                            transition="all 0.3s"
+                            _focus={{ boxShadow: 'none' }}
+                            as={Button}
+                            colorScheme={connected ? 'brand': 'gray'}
+                            variant={connected ? 'outline' : 'solid'}
+                            rightIcon={!mobileView ? <ChevronDownIcon /> : undefined}
+                            leftIcon={!mobileView ? <FaWallet /> : undefined}
+                        >
+                            {(connected ? ellipsize(account?.address?.toString()) : 'Connect Wallet')}
+                        </MenuButton>
                     )
                 }
+                <MenuList>
+                    {
+                        connected ? (
+                            <>
+                                <MenuItem
+                                    onClick={copy}
+                                >
+                                    Copy Address
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => disconnect()}
+                                >
+                                    Disconnect
+                                </MenuItem>
+                            </>
+                        ) : (
+                            wallets.map(wallet => (
+                                <MenuItem
+                                    key={wallet.adapter.name}
+                                    onClick={() => onConnect(wallet)}
+                                    icon={<Image src={wallet.adapter.icon} boxSize={6} alt={wallet.adapter.name} />}
+                                    fontWeight="medium"
+                                    alignItems='center'
+                                >
+                                    <Flex
+                                        justifyContent='space-between'
+                                        alignItems='center'
+                                        gap={4}
+                                    >
+                                        {wallet.adapter.name}
+                                        {
+                                            (wallet.adapter.name === 'Pontem' || wallet.adapter.name == 'Rise Wallet') && (
+                                                <Flex
+                                                    alignItems='center'
+                                                    bg='green.500'
+                                                    rounded='lg'
+                                                    p={1}
 
-            </MenuList>
-        </Menu>
+                                                >
+                                                    <Text
+                                                        fontSize='xs'
+                                                        color='white'
+                                                        fontWeight='bold'
+                                                    >
+                                                        Popular
+                                                    </Text>
+                                                </Flex>
+                                            )
+                                        }
+                                    </Flex>
+                                </MenuItem>
+                            ))
+                        )
+                    }
+
+                </MenuList>
+            </Menu>
+        </HStack>
     )
 }
 

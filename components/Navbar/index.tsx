@@ -1,7 +1,9 @@
 import React from 'react';
+
 import {Flex, HStack, Text} from "@chakra-ui/react";
-import ConnectWallet from "@/components/Navbar/ConnectWallet";
+
 import NavLinks from "@/components/Navbar/NavLinks";
+import AccountSection from "@/components/Navbar/AccountSection";
 
 export const navbarHeight = 20;
 
@@ -24,7 +26,7 @@ const Navbar = () => {
                 </Text>
                 <NavLinks />
             </HStack>
-            <ConnectWallet />
+            <AccountSection />
         </Flex>
     );
 };
