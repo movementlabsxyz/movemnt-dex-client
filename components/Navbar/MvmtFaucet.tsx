@@ -15,7 +15,7 @@ const MvmtFaucet = () => {
 
     const { onFaucet } = useMvmtFaucet();
 
-    const balance = useCoinBalance(account?.address?.toString(), MVMT);
+    const {balance, loading} = useCoinBalance(account?.address?.toString(), MVMT);
 
     if(!account) return null;
 
@@ -27,7 +27,7 @@ const MvmtFaucet = () => {
                 fontSize='sm'
                 fontWeight={'bold'}
             >
-                Balance: {balance.toFixed(2)} {MVMT.symbol}
+                Balance: {loading ? "Loading..." : `${balance.toFixed(2)} ${MVMT.symbol}`}
             </Text>
             <Button
                 onClick={onFaucet}

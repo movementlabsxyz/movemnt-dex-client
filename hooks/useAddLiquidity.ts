@@ -30,14 +30,14 @@ const useAddLiquidity = () => {
 
     const curveType = useMemo<CurveType>(() => "Uncorrelated", []);
 
-    const fetchCoin2Amount = async (coin1Amount: number, coin1: Coin | null, coin2: Coin | null) => {
-        if(!coin1 || !coin2 || coin1Amount <= 0) return;
+    const fetchCoin2Amount = async (coinXInput: number, coin1: Coin | null, coin2: Coin | null) => {
+        if(!coin1 || !coin2 || coinXInput <= 0) return;
         const coin2Amount = await getCoin2Amount(
             client,
             coin1,
             coin2,
             curveType,
-            coin1Amount
+            coinXInput
         );
         if(coin2Amount > 0) setCoinYAmount(coin2Amount);
     }

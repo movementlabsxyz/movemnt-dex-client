@@ -18,7 +18,7 @@ const CoinAmountInput: React.FC<Props> = ({ coin, amount, setAmount, rightAddon,
 
     const { account } = useWallet();
 
-    const balance = useCoinBalance(account?.address?.toString(), coin);
+    const {balance, loading} = useCoinBalance(account?.address?.toString(), coin);
 
     const [amountAsString, setAmountAsString] = useState<string>("");
 
@@ -78,7 +78,7 @@ const CoinAmountInput: React.FC<Props> = ({ coin, amount, setAmount, rightAddon,
                             fontWeight='medium'
                             color={subTextColor}
                         >
-                            Balance: {balance} {coin.symbol}
+                            Balance: {loading ? "Loading..." : `${balance} ${coin.symbol}`}
                         </Text>
                     )
                 }

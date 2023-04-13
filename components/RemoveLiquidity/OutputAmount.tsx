@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Text, useColorModeValue, VStack} from "@chakra-ui/react";
 
 import {Coin} from "@/types/Coin";
 
@@ -18,7 +18,7 @@ const OutputAmount: React.FC<Props> = ({ coin, amount, loading }) => {
             <Text
                 fontSize='sm'
                 fontWeight='medium'
-                color='blackAlpha.700'
+                color={useColorModeValue("blackAlpha.700", "whiteAlpha.700")}
             >
                 {
                     coin ? (

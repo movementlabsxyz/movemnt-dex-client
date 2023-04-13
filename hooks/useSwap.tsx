@@ -29,28 +29,28 @@ const useSwap = () => {
 
     const curveType = useMemo<CurveType>(() => "Uncorrelated", []);
 
-    const fetchOutputAmount = async (inputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
-        if(!inputCoin || !outputCoin || inputAmount <= 0) return;
-        const outputAmount = await getOutputAmount(
+    const fetchOutputAmount = async (uiInputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
+        if(!inputCoin || !outputCoin || uiInputAmount <= 0) return;
+        const calculatedOutputAmount = await getOutputAmount(
             client,
-            inputAmount,
+            uiInputAmount,
             inputCoin,
             outputCoin,
             curveType
         );
-        if(outputAmount > 0) setOutputAmount(outputAmount);
+        if(calculatedOutputAmount > 0) setOutputAmount(calculatedOutputAmount);
     }
 
-    const fetchInputAmount = async (outputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
-        if(!inputCoin || !outputCoin || outputAmount <= 0) return;
-        const inputAmount = await getInputAmount(
+    const fetchInputAmount = async (uiOutputAmount: number, inputCoin: Coin | null, outputCoin: Coin | null) => {
+        if(!inputCoin || !outputCoin || uiOutputAmount <= 0) return;
+        const calculatedInputAmount = await getInputAmount(
             client,
-            outputAmount,
+            uiOutputAmount,
             inputCoin,
             outputCoin,
             curveType
         );
-        if(inputAmount > 0) setInputAmount(inputAmount);
+        if(calculatedInputAmount > 0) setInputAmount(calculatedInputAmount);
     }
 
     const fetchSwapExists = async (inputCoin: Coin | null, outputCoin: Coin | null) => {
@@ -60,7 +60,7 @@ const useSwap = () => {
     }
 
     const updateInputCoin = async (coin: Coin) => {
-        setInputCoin(coin);
+        setInputCoin(coin)
         await Promise.all([
             fetchSwapExists(coin, outputCoin),
             fetchOutputAmount(inputAmount, coin, outputCoin),
