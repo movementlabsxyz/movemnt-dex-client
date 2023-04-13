@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {Flex, NumberInput, NumberInputField, VStack, Text} from "@chakra-ui/react";
+import {Flex, NumberInput, NumberInputField, VStack, Text, useColorModeValue} from "@chakra-ui/react";
 import {Coin} from "@/types/Coin";
 import useCoinBalance from "@/hooks/utils/useCoinBalance";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
@@ -45,6 +45,8 @@ const CoinAmountInput: React.FC<Props> = ({ coin, amount, setAmount, rightAddon,
         }
     }
 
+    const subTextColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700")
+
     return (
         <Flex
             w='100%'
@@ -74,7 +76,7 @@ const CoinAmountInput: React.FC<Props> = ({ coin, amount, setAmount, rightAddon,
                         <Text
                             fontSize='xs'
                             fontWeight='medium'
-                            color='blackAlpha.700'
+                            color={subTextColor}
                         >
                             Balance: {balance} {coin.symbol}
                         </Text>

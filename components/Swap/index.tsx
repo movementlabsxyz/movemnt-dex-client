@@ -1,16 +1,18 @@
 import React from 'react';
 
-import {VStack, Text, IconButton, Button, Box} from "@chakra-ui/react";
+import {VStack, Text, IconButton, Box} from "@chakra-ui/react";
 
 import { MdOutlineSwapVert } from "react-icons/md";
 
 import Card from "@/components/Utilities/Card";
 import CoinInput from "@/components/Utilities/CoinInput";
+import Button from "@/components/Utilities/Button";
+import SlippageToleranceModal from "@/components/Swap/SlippageToleranceModal";
+import PoolReserves from "@/components/PoolReserves";
 
 import useSwap from "@/hooks/useSwap";
-import SlippageToleranceModal from "@/components/Swap/SlippageToleranceModal";
+
 import coins from "@/data/coins";
-import PoolReserves from "@/components/PoolReserves";
 
 const Swap = () => {
 
@@ -90,6 +92,7 @@ const Swap = () => {
                     onClick={onSwap}
                     w='100%'
                     isDisabled={disabled}
+                    colorScheme='brand'
                 >
                     Swap
                 </Button>

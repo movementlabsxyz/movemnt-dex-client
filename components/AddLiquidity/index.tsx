@@ -1,13 +1,14 @@
 import React from 'react';
 
-import {Button, VStack} from "@chakra-ui/react";
+import {VStack} from "@chakra-ui/react";
 
 import CoinInput from "@/components/Utilities/CoinInput";
+import Button from "@/components/Utilities/Button";
+import PoolReserves from "@/components/PoolReserves";
 
 import useAddLiquidity from "@/hooks/useAddLiquidity";
 
 import coins from "@/data/coins";
-import PoolReserves from "@/components/PoolReserves";
 
 const AddLiquidity = () => {
 
@@ -54,6 +55,7 @@ const AddLiquidity = () => {
                 onClick={onAddLiquidity}
                 w='100%'
                 isDisabled={disabled}
+                colorScheme='brand'
             >
                 Add Liquidity
             </Button>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Box, Container} from "@chakra-ui/react";
+import {Box, Container, useColorModeValue} from "@chakra-ui/react";
 
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
@@ -21,7 +21,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 
     return (
         <Box
-            bg='gray.50'
+            bg={useColorModeValue('blackAlpha.50', 'blackAlpha.700')}
             minH='100vh'
             minW='100vw'
         >

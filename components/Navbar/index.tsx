@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {Flex, HStack, Text} from "@chakra-ui/react";
+import {Flex, HStack, Image, Text} from "@chakra-ui/react";
 
 import NavLinks from "@/components/Navbar/NavLinks";
 import AccountSection from "@/components/Navbar/AccountSection";
+import Link from "next/link";
 
 export const navbarHeight = 20;
 
@@ -18,12 +19,28 @@ const Navbar = () => {
             <HStack
                 spacing={8}
             >
-                <Text
-                    fontSize='2xl'
-                    fontWeight='bold'
+                <Link
+                    href='/'
                 >
-                    Movement DEX
-                </Text>
+                    <HStack
+                        spacing={4}
+                        cursor='pointer'
+
+                    >
+                        <Image
+                            alt='Movement DEX'
+                            src='/coinIcons/mvmt.png'
+                            boxSize={8}
+                            rounded='full'
+                        />
+                        <Text
+                            fontSize='2xl'
+                            fontWeight='bold'
+                        >
+                            Movement DEX
+                        </Text>
+                    </HStack>
+                </Link>
                 <NavLinks />
             </HStack>
             <AccountSection />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card as ChakraCard } from "@chakra-ui/react";
+import {Card as ChakraCard, useColorModeValue} from "@chakra-ui/react";
 
 interface Props {
     children: React.ReactNode
@@ -9,7 +9,7 @@ interface Props {
 const Card: React.FC<Props> = ({ children }) => {
     return (
         <ChakraCard
-            bg='white'
+            bg={useColorModeValue('white', 'whiteAlpha.50')}
             p={4}
             shadow='xl'
         >

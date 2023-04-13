@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {Button, Text, VStack} from "@chakra-ui/react";
+import {Text, VStack} from "@chakra-ui/react";
 
 import Card from "@/components/Utilities/Card";
+import Button from "@/components/Utilities/Button";
 import CoinInput from "@/components/Utilities/CoinInput";
 
 import useFaucet from "@/hooks/useFaucet";
@@ -45,6 +46,7 @@ const Faucet = () => {
                     onClick={onFaucet}
                     w='100%'
                     isDisabled={disabled}
+                    colorScheme='brand'
                 >
                     Faucet
                 </Button>

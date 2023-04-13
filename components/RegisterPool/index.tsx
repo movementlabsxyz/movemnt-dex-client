@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {VStack, Button, Text} from "@chakra-ui/react";
+import {VStack, Text} from "@chakra-ui/react";
 
 import CoinSelect from "@/components/Utilities/CoinSelect";
+import Button from "@/components/Utilities/Button";
 import useRegisterPool from "@/hooks/useRegisterPool";
 
 import coins from "@/data/coins";
@@ -36,6 +37,7 @@ const RegisterPool = () => {
             <Button
                 onClick={onRegister}
                 isDisabled={disabled}
+                colorScheme='brand'
             >
                 Register Pool
             </Button>

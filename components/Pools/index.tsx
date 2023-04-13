@@ -28,7 +28,7 @@ const Pools = () => {
             <Tabs
                 isFitted
                 variant='line'
-                colorScheme='blue'
+                colorScheme='brand'
                 size='lg'
             >
                 <TabList>

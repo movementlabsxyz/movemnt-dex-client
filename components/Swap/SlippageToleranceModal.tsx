@@ -11,7 +11,7 @@ import {
     IconButton,
     Tab,
     Tabs,
-    TabList, VStack
+    TabList, VStack, useColorModeValue
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 
@@ -32,6 +32,9 @@ const SlippageToleranceModal: React.FC<Props> = ({ slippageTolerance, setSlippag
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    const modalColor = useColorModeValue('white', 'gray.900');
+    const tabColor = useColorModeValue('black', 'white')
+
     return (
         <>
             <Modal
@@ -39,14 +42,16 @@ const SlippageToleranceModal: React.FC<Props> = ({ slippageTolerance, setSlippag
                 onClose={onClose}
             >
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent
+                    bg={modalColor}
+                >
                     <ModalHeader>Slippage Tolerance</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <VStack>
                             <Tabs
                                 variant='soft-rounded'
-                                colorScheme='blackAlpha'
+                                colorScheme='brand'
                                 index={slippageOptions.indexOf(slippageTolerance)}
                                 onChange={(index) => setSlippageTolerance(slippageOptions[index])}
                             >
@@ -55,6 +60,7 @@ const SlippageToleranceModal: React.FC<Props> = ({ slippageTolerance, setSlippag
                                         slippageOptions.map((option) => (
                                             <Tab
                                                 key={option}
+                                                color={tabColor}
                                             >
                                                 {option * 100}%
                                             </Tab>

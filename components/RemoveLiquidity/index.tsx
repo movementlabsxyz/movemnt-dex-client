@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {Button, VStack} from "@chakra-ui/react";
+import {VStack} from "@chakra-ui/react";
 
 import LPCoinInput from "@/components/Utilities/LPCoinInput";
-
-import useRemoveLiquidity from "@/hooks/useRemoveLiquidity";
+import Button from "@/components/Utilities/Button";
 import PoolReserves from "@/components/PoolReserves";
 import OutputAmounts from "@/components/RemoveLiquidity/OutputAmounts";
+
+import useRemoveLiquidity from "@/hooks/useRemoveLiquidity";
 
 const RemoveLiquidity = () => {
 
@@ -49,6 +50,7 @@ const RemoveLiquidity = () => {
                 onClick={onRemoveLiquidity}
                 w='100%'
                 isDisabled={disabled}
+                colorScheme='brand'
             >
                 Remove Liquidity
             </Button>
