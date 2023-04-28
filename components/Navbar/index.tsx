@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Flex, HStack, Image, Text} from "@chakra-ui/react";
+import {Flex, Heading, HStack, Image} from "@chakra-ui/react";
 
 import NavLinks from "@/components/Navbar/NavLinks";
 import AccountSection from "@/components/Navbar/AccountSection";
@@ -33,12 +33,12 @@ const Navbar = () => {
                             boxSize={8}
                             rounded='full'
                         />
-                        <Text
+                        <Heading
                             fontSize='2xl'
                             fontWeight='bold'
                         >
                             Movement DEX
-                        </Text>
+                        </Heading>
                     </HStack>
                 </Link>
                 <NavLinks />

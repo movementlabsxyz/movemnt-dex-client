@@ -36,6 +36,7 @@ const Pools = () => {
                         pools.map((pool) => (
                             <Tab
                                 key={pool.label}
+                                fontFamily="'Sora'"
                             >
                                 {pool.label}
                             </Tab>

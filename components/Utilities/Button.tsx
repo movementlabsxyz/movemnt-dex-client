@@ -8,6 +8,9 @@ const Button: React.FC<ButtonProps> = (buttonProps) => {
             colorScheme="brand"
             color='black'
             {...buttonProps}
+            _hover={{
+                opacity: 0.9
+            }}
         />
     );
 };

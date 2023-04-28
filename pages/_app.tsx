@@ -2,6 +2,9 @@ import type { AppProps } from 'next/app'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
+import "@fontsource/sora"
+import "@fontsource/ibm-plex-mono"
+
 import { WalletProvider, PontemWalletAdapter } from '@manahippo/aptos-wallet-adapter';
 
 const wallets = [

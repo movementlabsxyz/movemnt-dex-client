@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Heading, VStack} from "@chakra-ui/react";
 
 import Card from "@/components/Utilities/Card";
 import Button from "@/components/Utilities/Button";
@@ -26,14 +26,14 @@ const Faucet = () => {
             <VStack
                 spacing={4}
             >
-                <Text
+                <Heading
                     fontSize='2xl'
                     fontWeight='bold'
                     w='100%'
                     textAlign={'center'}
                 >
                     Faucet
-                </Text>
+                </Heading>
                 <CoinInput
                     label="Faucet Amount"
                     amount={coinAmount}

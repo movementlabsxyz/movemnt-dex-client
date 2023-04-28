@@ -10,7 +10,7 @@ const Card: React.FC<Props> = ({ children }) => {
     return (
         <ChakraCard
             bg={useColorModeValue('white', 'whiteAlpha.50')}
-            p={4}
+            p={8}
             shadow='xl'
         >
             {children}

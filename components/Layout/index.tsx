@@ -28,6 +28,7 @@ const Layout: React.FC<Props> = ({ children }) => {
             <Navbar />
             <Container
                 py={8}
+                maxW='2xl'
             >
                 {
                     account === null ? (

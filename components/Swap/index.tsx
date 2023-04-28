@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {VStack, Text, IconButton, Box} from "@chakra-ui/react";
+import {VStack, Text, IconButton, Box, Heading} from "@chakra-ui/react";
 
 import { MdOutlineSwapVert } from "react-icons/md";
 
@@ -42,14 +42,14 @@ const Swap = () => {
                     w='100%'
                     position='relative'
                 >
-                    <Text
+                    <Heading
                         fontSize='2xl'
                         fontWeight='bold'
                         w='100%'
                         textAlign={'center'}
                     >
                         Swap
-                    </Text>
+                    </Heading>
                     <Box
                         position='absolute'
                         right={0}
