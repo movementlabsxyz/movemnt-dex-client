@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Heading, Text, VStack} from "@chakra-ui/react";
 
 import Card from "@/components/Utilities/Card";
 
@@ -12,12 +12,12 @@ const IncorrectNetwork = () => {
             <VStack
                 spacing={4}
             >
-                <Text
+                <Heading
                     fontSize='2xl'
                     fontWeight='bold'
                 >
                     Incorrect Network
-                </Text>
+                </Heading>
                 <Text
                     textAlign='center'
                 >

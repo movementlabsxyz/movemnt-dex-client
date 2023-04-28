@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Heading, Text, VStack} from "@chakra-ui/react";
 
 import Card from "@/components/Utilities/Card";
 import ConnectWallet from "@/components/Navbar/ConnectWallet";
@@ -11,12 +11,12 @@ const NotConnected = () => {
             <VStack
                 spacing={4}
             >
-                <Text
+                <Heading
                     fontSize='2xl'
                     fontWeight='bold'
                 >
                     Welcome to Movement
-                </Text>
+                </Heading>
                 <Text>
                     Please connect your wallet to get started
                 </Text>
