@@ -1,4 +1,6 @@
-const colors = {
+import {Colors} from "@chakra-ui/react";
+
+const colors: Colors = {
     brand: {
         "50": "#93E7E2",
         "100": "#93E7E2",
