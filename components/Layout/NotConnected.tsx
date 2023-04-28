@@ -14,6 +14,7 @@ const NotConnected = () => {
                 <Heading
                     fontSize='2xl'
                     fontWeight='bold'
+                    textAlign='center'
                 >
                     Welcome to Movement
                 </Heading>

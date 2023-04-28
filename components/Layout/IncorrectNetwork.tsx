@@ -15,6 +15,7 @@ const IncorrectNetwork = () => {
                 <Heading
                     fontSize='2xl'
                     fontWeight='bold'
+                    textAlign='center'
                 >
                     Incorrect Network
                 </Heading>
