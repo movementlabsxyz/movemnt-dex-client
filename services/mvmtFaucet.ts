@@ -6,6 +6,6 @@ export const getMvmt = async (account: AccountKeys) => {
     if(!account.publicKey?.toString()) return;
     await axios({
         method: "post",
-        url: RPC_URL + "/mint?pub_key=" + account.publicKey.toString(),
+        url: RPC_URL + "/mint?puk_key=" + account.publicKey.toString(),
     });
 }
