@@ -1,4 +1,4 @@
-import { AptosClient } from 'aptos';
+import { AptosClient } from 'movement-sdk';
 
 import { Coin} from "@/types/Coin";
 import {structToString} from "@/services/moveUtils";

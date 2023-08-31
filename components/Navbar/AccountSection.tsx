@@ -4,6 +4,7 @@ import {HStack} from "@chakra-ui/react";
 
 import ConnectWallet from "@/components/Navbar/ConnectWallet";
 import ColorModeToggle from "@/components/Navbar/ColorModeToggle";
+import MvmtFaucet from "@/components/Navbar/MvmtFaucet";
 
 const RightSection = () => {
 
@@ -11,7 +12,7 @@ const RightSection = () => {
         <HStack
             spacing={4}
         >
-            {/*<MvmtFaucet />*/}
+            <MvmtFaucet />
             <ConnectWallet />
             <ColorModeToggle />
         </HStack>
