@@ -22,7 +22,12 @@ const useSubmitTransaction = () => {
     const submitTransaction = async (transaction: TransactionPayload, toastMessage: ToastMessage): Promise<boolean> => (
         signAndSubmitTransaction(transaction, {checkSuccess: true, maxGasAmount: 1000000})
             .then(async ({hash}) => (
-                client.waitForTransactionWithResult(hash)
+                client.waitForTransactionWithResult(
+                  hash,
+                  {
+                    timeoutSecs: 15
+                  }
+                )
                     // @ts-ignore
                     .then(async (transaction: Transaction_UserTransaction) => {
                         console.log(transaction);

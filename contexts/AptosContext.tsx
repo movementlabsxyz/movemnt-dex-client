@@ -2,7 +2,7 @@ import { createContext, ReactNode, FC, useContext, useState, useEffect, useCallb
 
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 
-import { AptosClient } from "aptos";
+import { AptosClient } from "movement-sdk";
 
 import { getAptosClient } from "@/services/aptosClients";
 

@@ -1,4 +1,4 @@
-import { AptosClient } from "aptos";
+import { AptosClient } from "movement-sdk";
 
 import {RPC_URL} from "@/data/rpcURL";
 
